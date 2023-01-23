@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package time;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/ardfard/go-web-skeleton/api/grpc/time";
+
+message GetNowRequest {
+}
+
+message GetNowResponse {
+  google.protobuf.Timestamp now = 1;
+}
+
+
+service Time {
+  rpc GetNow(GetNowRequest) returns (GetNowResponse) {}
+}

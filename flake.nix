@@ -47,9 +47,14 @@
         defaultPackage = packages.${packageName};
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
+            buf-language-server
+            delve
             go-tools
             gopls
-            delve
+            buf
+            protobuf
+            protoc-gen-go
+            protoc-gen-go-grpc
           ];
           inputsFrom = [ defaultPackage ];
         };
