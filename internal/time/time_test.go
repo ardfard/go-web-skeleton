@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestGetCu(t *testing.T) {
+func TestGetCurrent(t *testing.T) {
 	assert.NotPanics(t, func() {
 		_, _ = GetCurrent()
 	})
