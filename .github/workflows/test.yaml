@@ -1,5 +1,10 @@
 name: test the project
-on: [push]
+on: 
+  push:
+    paths:
+      - '**.go'
+      - 'go.mod'
+      - 'go.sum'
 jobs:
   go-test:
     runs-on: ubuntu-latest
