@@ -23,5 +23,9 @@ jobs:
             /nix/store
             /nix/var/db
           key: ${{ runner.os }}-${{ env.cache-name }}
+      - name: modify /nix/store after cache
+        run: |
+          sudo mkdir -p /nix/store
+          sudo chmod -R 755 /nix
       - name: run test
         run: nix develop --command go test ./...
