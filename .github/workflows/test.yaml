@@ -1,0 +1,12 @@
+name: test the project
+on: [push]
+jobs:
+  go-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cachix/install-nix-action@v18
+      - uses: actions/cache@v3
+        with:
+          path: /nix/store
+      - run: nix develop --command go test ./...
