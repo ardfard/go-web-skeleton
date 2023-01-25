@@ -1,31 +1,33 @@
 name: test the project
-on: 
-  push:
-    paths:
-      - '**.go'
-      - 'go.mod'
-      - 'go.sum'
+on: [push] 
+  # push:
+  #   paths:
+  #     - '**.go'
+  #     - 'go.mod'
+  #     - 'go.sum'
 jobs:
   go-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: cachix/install-nix-action@v18
-      - name: modify /nix/store before cache
-        run: |
-          sudo mkdir -p /nix/store
-          sudo chmod -R 777 /nix
+
       - uses: actions/cache@v3
+        id: nix-cache
         env:
           cache-name: nix-store
         with:
-          path: |
-            /nix/store
-            /nix/var/db
+          path: /tmp/nix-cache
           key: ${{ runner.os }}-${{ env.cache-name }}
-      - name: modify /nix/store after cache
-        run: |
-          sudo mkdir -p /nix/store
-          sudo chmod -R 755 /nix
+
+      - uses: cachix/install-nix-action@v18
+
+      - name: "Import nix store cache"
+        if: "steps.nix-cache.outputs.cache-hit == 'true'"
+        run: "nix copy --from /tmp/nix-cache ./#devShell.x86_64-linux"
+
       - name: run test
         run: nix develop --command go test ./...
+
+      - name: Export nix store cache
+        if: "steps.nix-cache.outputs.cache-hit != 'true'"
+        run: "nix copy --to /tmp/nix-cache ./#devShell.x86_64-linux"
