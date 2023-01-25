@@ -23,11 +23,11 @@ jobs:
 
       - name: "Import nix store cache"
         if: "steps.nix-cache.outputs.cache-hit == 'true'"
-        run: "nix copy --from /tmp/nix-cache ./#devShells.x86_64-linux"
+        run: "nix copy --from /tmp/nix-cache .#devShells.x86_64-linux.default"
 
       - name: run test
         run: nix develop --command go test ./...
 
       - name: Export nix store cache
         if: "steps.nix-cache.outputs.cache-hit != 'true'"
-        run: "nix copy --to /tmp/nix-cache ./#devShells.x86_64-linux"
+        run: "nix copy --to /tmp/nix-cache .#devShells.x86_64-linux.default"
