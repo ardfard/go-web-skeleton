@@ -5,12 +5,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: create /nix/store
+        run: |
+          sudo mkdir -p /nix/store
+          sudo chmod -R 777 /nix
       - uses: cachix/install-nix-action@v18
       - uses: actions/cache@v3
         env:
           cache-name: nix-store
         with:
-          path: /nix/store
+          path: |
+            /nix/store
+            /nix/var/db
           key: ${{ runner.os }}-${{ env.cache-name }}
       - name: run test
         run: nix develop --command go test ./...
