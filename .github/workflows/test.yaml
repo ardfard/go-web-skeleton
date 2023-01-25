@@ -5,11 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: create /nix/store
+      - uses: cachix/install-nix-action@v18
+      - name: modify /nix/store before cache
         run: |
           sudo mkdir -p /nix/store
           sudo chmod -R 777 /nix
-      - uses: cachix/install-nix-action@v18
       - uses: actions/cache@v3
         env:
           cache-name: nix-store
