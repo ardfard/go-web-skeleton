@@ -11,3 +11,7 @@ func TestGetCurrent(t *testing.T) {
 		_, _ = GetCurrent()
 	})
 }
+
+func TestFailed(t *testing.T) {
+	assert.True(t, false, "testing failure")
+}
