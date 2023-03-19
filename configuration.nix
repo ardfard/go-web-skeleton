@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, app, ... }:
 
 {
   imports =
@@ -76,6 +76,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     curl
+    app
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -102,7 +103,7 @@
   # accidentally delete configuration.nix.
   # system.copySystemConfiguration = true;
 
-  nix.settings.trusted-public-keys = [ nixos-play:GfrHqfvVsSSq5sG/X0z+NAKbAJni2wLTX7xZs5dYsbQ= ];
+  nix.settings.trusted-public-keys = [ nixos-play:GfrHqfvVsSSq5sG/X0z+NAKbAJni2wLTX7xZs5dYsaQ= ];
   security.sudo.wheelNeedsPassword = false;
 
   # This value determines the NixOS release from which the default
