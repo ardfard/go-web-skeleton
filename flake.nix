@@ -18,7 +18,16 @@
 
       packageName = "go-web-skeleton";
     in
-    flake-utils.lib.eachDefaultSystem (system:
+    {
+
+      nixosConfigurations.vbox = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [ ./configuration.nix ];
+
+      };
+    } //
+    (flake-utils.lib.eachDefaultSystem (system:
       let pkgs = import nixpkgs { inherit system; };
       in
       rec
@@ -62,13 +71,10 @@
             protobuf
             protoc-gen-go
             protoc-gen-go-grpc
+            nixos-rebuild
           ];
           inputsFrom = [ defaultPackage ];
         };
-      });
-
-  # The default package for 'nix build'. This makes sense if the
-  # flake provides only one package or there is a clear "main"
-  # package.
+      }));
 
 }
