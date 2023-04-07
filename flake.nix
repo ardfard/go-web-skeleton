@@ -7,7 +7,13 @@
   # Flake utils to make it easier to work with flakes.
   inputs.flake-utils.url = "github:numtide/flake-utils";
 
-  outputs = { self, nixpkgs, flake-utils }:
+
+  inputs.agenix = {
+    url = "github:ryantm/agenix";
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = { self, nixpkgs, flake-utils, agenix }:
     let
 
       # to work with older version of flakes
@@ -27,11 +33,9 @@
       nixosConfigurations.vbox = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
 
-        specialArgs = {
-          app = packages.${system}.${packageName};
-        };
+        specialArgs = { };
 
-        modules = [ ./configuration.nix ];
+        modules = [ ./configuration.nix agenix.nixosModules.default ];
       };
       packages.${system} =
         {

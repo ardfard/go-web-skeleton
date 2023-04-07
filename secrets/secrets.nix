@@ -1,0 +1,7 @@
+let
+  ardfard-key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDC9SnMpmsGrz30kPGjZ8FycH9iBo9XPr1GrA45Fz83IzUciYmQltK9UJXhVj1j2wDNxlhxvQpqTPGIjbNKmYJqxj1Ri8Jt8WSTzC2zfEJXle4LV3NiPKsnchbSbj4OqPv5S9CfCzZguhecy7s2/o1grmnbm5kJGTYot5sAHOoZKmwFpQtCn+X9CLjFrlFKmnVcBHKv4mJbZ6cd4HobBilI1Nuuk6zcbiI373VrjyeIBhk3PAbu0EidZXAjd3ZYVZFDNNBlLz+i3so5mguCnLvclJnb0expGFlEve6zc9SgvJyGtFHaQbla5c+DTuiDm/XfUWLidY4wf/Nj1x98mLPJ fardiansyah.ardin@yahoo.com";
+  nixos = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHv34SLS6TzA1AHppG6gY5cdfAPEMSrym0mQKBoW9UjG";
+in
+{
+  "mysecret.age".publicKeys = [ ardfard-key nixos ];
+}
