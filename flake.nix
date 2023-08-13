@@ -68,6 +68,7 @@
       defaultPackage.${system} = packages.${system}.${packageName};
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = with pkgs; [
+          go
           buf-language-server
           delve
           go-tools
@@ -77,6 +78,7 @@
           protoc-gen-go
           protoc-gen-go-grpc
           nixos-rebuild
+          temporal-cli
         ];
         inputsFrom = [ defaultPackage ];
       };

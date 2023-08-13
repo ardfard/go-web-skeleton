@@ -13,6 +13,7 @@ import (
 
 func main() {
 	grpcServer := grpc.NewServer()
+
 	timev1.RegisterTimeServer(grpcServer, timeserver.TimeServer{})
 
 	e := echo.New()
